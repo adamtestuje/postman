@@ -1,0 +1,499 @@
+{
+	"info": {
+		"name": "jsonplaceholder",
+		"_postman_id": "1b391c5b-7fc8-6905-84fa-ef82ea255c84",
+		"description": "Basic jsonplaceholder test collection.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/post",
+			"description": "",
+			"item": [
+				{
+					"name": "https://jsonplaceholder.typicode.com/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						},
+						"description": "Check if endpoint is available and respone time is acceptable."
+					},
+					"response": []
+				},
+				{
+					"name": "https://jsonplaceholder.typicode.com/posts/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Response body is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.title).to.eql(\"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\");",
+									"    pm.expect(jsonData.userId).to.eql(1);",
+									"    pm.expect(jsonData.id).to.eql(1);",
+									"    pm.expect(jsonData.body).to.eql(\"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						},
+						"description": "This test will check response time and body for GET of one blog post."
+					},
+					"response": []
+				},
+				{
+					"name": "https://jsonplaceholder.typicode.com/posts/1/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Response is 200 and is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"First comment has an ID of 1\"), function () {",
+									"    pm.expect(pm.response.json().results[0].id).to.equal(1);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/1/comments",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								"1",
+								"comments"
+							]
+						},
+						"description": "Simple comment test."
+					},
+					"response": []
+				},
+				{
+					"name": "https://jsonplaceholder.typicode.com/posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"New post has proper data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(101);",
+									"    pm.expect(jsonData.title).to.eql(\"New post!\");",
+									"    pm.expect(jsonData.userId).to.eql(\"321\");",
+									"    pm.expect(jsonData.body).to.eql(\"Lorem ipsum guys.\");",
+									"});",
+									"",
+									"pm.test(\"Valid and quick response under 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "New post!",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "Lorem ipsum guys.",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "321",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts"
+							]
+						},
+						"description": "Simple POSTing test."
+					},
+					"response": []
+				},
+				{
+					"name": "https://jsonplaceholder.typicode.com/posts/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Empty response\", function () {",
+									"    var data = JSON.parse(responseBody);",
+									"    data.length === 0;",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						},
+						"description": "DELETE should respond with empty object."
+					},
+					"response": []
+				},
+				{
+					"name": "https://jsonplaceholder.typicode.com/posts/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.title).to.eql(\"New title\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "New title",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						},
+						"description": "Test that PATCH can set a new title and has proper response."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/comments",
+			"description": "",
+			"item": [
+				{
+					"name": "https://jsonplaceholder.typicode.com/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Returns all 500 comments\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(500);",
+									"});",
+									"",
+									"pm.test(\"All comments has own id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (i = 1; i < jsonData.length; i++) {",
+									"        pm.expect(jsonData[i - 1].id).to.eql(i);",
+									"    }",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments"
+							]
+						},
+						"description": "GET will return all comments."
+					},
+					"response": []
+				},
+				{
+					"name": "https://jsonplaceholder.typicode.com/comments?postId=1&id=4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.email).to.eql(\"Lew@alysha.tv\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments?postId=1&id=4",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "1",
+									"equals": true
+								},
+								{
+									"key": "id",
+									"value": "4",
+									"equals": true
+								}
+							]
+						},
+						"description": "Certain comment has proper email value."
+					},
+					"response": []
+				},
+				{
+					"name": "https://jsonplaceholder.typicode.com/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Returns all 500 comments\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(500);",
+									"});",
+									"",
+									"pm.test(\"All comments has own id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (i = 1; i < jsonData.length; i++) {",
+									"        pm.expect(jsonData[i - 1].id).to.eql(i);",
+									"    }",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments"
+							]
+						},
+						"description": "GET will return all comments and each comment has own id (well this is not very sophisticated)."
+					},
+					"response": []
+				},
+				{
+					"name": "https://jsonplaceholder.typicode.com/posts/{{id}}/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"All comments belong to proper post\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for (i = 1; i < jsonData.length; i++) {",
+									"        pm.expect(jsonData[i].postId).to.eql(pm.environment.get(\"id\"));",
+									"    }",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/posts/{{id}}/comments",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"posts",
+								"{{id}}",
+								"comments"
+							]
+						},
+						"description": "All comments belong to proper post.\nThis need env var `id` (e.g. id=1)"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
